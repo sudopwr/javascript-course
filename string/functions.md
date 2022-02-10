@@ -16,7 +16,7 @@ const product = "Laptop"
 product.toUpperCase() // LAPTOP
 
 const name = "Dell"
-product.toLowerCase() // dell
+name.toLowerCase() // dell
 ```
 
 ## Immutable
