@@ -11,7 +11,7 @@ console.log(name.length) // 10
 
 ## upper and lower case
 
-```
+```js
 const product = "Laptop"
 product.toUpperCase() // LAPTOP
 
@@ -23,7 +23,7 @@ name.toLowerCase() // dell
 
 Strings are immutable
 
-```
+```js
 const product = "laptop"
 const newProductName = product.toUpperCase()
 
@@ -32,7 +32,7 @@ console.log(newProductName) // LAPTOP
 ```
 
 ## indexing
-```
+```js
 const product = "laptop"
 
 console.log(product[0]) // l
@@ -59,7 +59,7 @@ String.fromCharCode(65) // A
 There are multiple functions for sub string in javascript.
 
 ### sub string functions
-```
+```js
 substring(startIndex, endIndex)
 
 slice(startIndex, endIndex)
@@ -67,7 +67,7 @@ substr(startIndex, length)
 ```
 
 ### normal example
-```
+```js
 const product = "laptop"
 
 product.substring(2, 5) // pto
@@ -77,7 +77,7 @@ product.substr(2, 3) // pto
 ```
 
 ### only one positive argument
-```
+```js
 const product = "laptop"
 
 product.slice(3) // 'top'
@@ -87,7 +87,7 @@ product.substr(3) //'top'
 ```
 
 ### only one negative argument
-```
+```js
 const product = "laptop"
 
 product.substring(-2) //'laptop', it just ignore negative index
@@ -98,19 +98,19 @@ product.substr(-2) //'op'
 
 ## replace
 
-```
+```js
 const productDescription = "Laptop is fast. Laptop has good process. laptop is lightweigth."
 
 productDescription.replace('Laptop', 'tablet') // tablet is fast. Laptop has good process. laptop is lightweigth.
 ```
 
-```
+```js
 const productDescription = "Laptop is fast. Laptop has good process. laptop is lightweigth."
 
 productDescription.replace(/Laptop/g, 'tablet') // tablet is fast. tablet has good process. laptop is lightweigth.'
 ```
 
-```
+```js
 const productDescription = "Laptop is fast. Laptop has good process. laptop is lightweigth."
 
 productDescription.replace(/Laptop/gi, 'tablet') // 'tablet is fast. tablet has good process. tablet is lightweigth.'
@@ -118,7 +118,7 @@ productDescription.replace(/Laptop/gi, 'tablet') // 'tablet is fast. tablet has 
 
 ## concat
 
-```
+```js
 const firstName = "sudo"
 const lastName = "power"
 const fullName = firstName.concat(lastName)
@@ -126,7 +126,7 @@ const fullName = firstName.concat(lastName)
 console.log(fullName) // sudopower
 ```
 
-```
+```js
 const firstName = "sudo"
 const lastName = "power"
 const fullName = firstName + lastName
@@ -136,7 +136,7 @@ console.log(fullName) // sudopower
 
 ## split
 
-```
+```js
 const productDescription = "Laptop is fast"
 const arrayDesc = productDescription.split(" ") 
 
@@ -145,42 +145,42 @@ console.log(arrayDesc) // [ 'Laptop', 'is', 'fast' ]
 
 ## search
 
-```
+```js
 const productDescription = "Laptop is fast"
 
 productDescription.search('is') // 7
 productDescription.indexOf('is') // 7
 ```
 
-```
+```js
 const productDescription = "Laptop is fast"
 
 productDescription.search('a') // 1, not support second parameter
 productDescription.indexOf('a', 3) // 11
 ```
 
-```
+```js
 const productDescription = "hello, Laptop is fast"
 
 productDescription.search(/laptop/i) // 7, support reguler expression
 productDescription.indexOf('laptop') // -1, not found
 ```
 
-```
+```js
 const productDescription = "Laptop is fast"
 
 productDescription.indexOf('a') // 1
 productDescription.lastIndexOf('a') // 11
 ```
 
-```
+```js
 const productDescription = "Laptop is fast"
 
 productDescription.startsWith('Laptop') // true
 productDescription.endsWith('fast') // true
 ```
 
-```
+```js
 const productDescription = "Laptop is fast"
 
 productDescription.includes('fast') // true
