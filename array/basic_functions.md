@@ -13,6 +13,13 @@ prices[0] = 100
 prices[1] = 200
 ```
 
+## .toString()
+
+```js
+let colors = ['red', 'green']
+colors.toString() // 'red,green'
+```
+
 ## Change element
 
 ```js
@@ -55,13 +62,6 @@ let colors = ['red', 'green']
 colors.push('blue') // best
 
 colors[colors.length] = 'blue' // bad
-```
-
-## .toString()
-
-```js
-let colors = ['red', 'green']
-colors.toString() // 'red,green'
 ```
 
 ## remove element
