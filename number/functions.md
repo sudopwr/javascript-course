@@ -2,7 +2,7 @@
 
 ## Arithmetic operations
 
-```
+```js
 10+20 // 30
 
 20*10 // 200
@@ -18,7 +18,7 @@
 
 Return string
 
-```
+```js
 2.toString(2) // SyntaxError: Invalid
 
 const rollNo = 123
@@ -31,7 +31,7 @@ rollNo.toString(6) // hexa-decimal 7b
 
 ## Number object
 
-```
+```js
 let rollNo = new Number(123) // Don't use it
 
 rollNo === 123 // false
@@ -41,7 +41,7 @@ rollNo === 123 // false
 
 return string
 
-```
+```js
 const price = 2000.632
 
 price.toFixed(0) // 2001
@@ -52,7 +52,7 @@ price.toFixed(6) // 2000.632000
 
 ## String to number
 
-```
+```js
 Number("2000.632") // 2000.632
 parseInt("2000.632") // 2000
 parseFloat("2000.632") // 2000.632
@@ -68,7 +68,7 @@ parseFloat("product price is 2000.632") // NaN
 
 ## Number.isInteger()
 
-```
+```js
 Number.isInteger(10) // true
 
 Number.isInteger(10.55) // false
@@ -78,7 +78,7 @@ Number.isInteger(10.55) // false
 
 ## Round number
 
-```
+```js
 // Math.round(x) : round to its nearest integer
 Math.round(2000.66) // 2001
 Math.round(2000.44) // 2000
@@ -98,7 +98,7 @@ Math.trunc(2000.44) // 2000
 
 ## Math.pow()
 
-```
+```js
 Math.pow(8, 2) // 64
 
 8 ** 2 // 64
@@ -106,13 +106,13 @@ Math.pow(8, 2) // 64
 
 ## Math.sqrt()
 
-```
+```js
 Math.sqrt(16) // 4 
 ```
 
 ## Math.min()
 
-```
+```js
 Math.min(100, -1, 50, 30, 20) // -1
 
 const prices = [100, 50, 10, 60]
@@ -121,7 +121,7 @@ Math.min(...prices)
 
 ## Math.max()
 
-```
+```js
 Math.max(100, -1, 50, 30, 20) // -1
 
 const prices = [100, 50, 10, 60]
@@ -130,7 +130,7 @@ Math.max(...prices)
 
 ## Math.random()
 
-```
+```js
 Math.random() // any random value 0.xxxxxx
 
 Math.floor(1000 + Math.random() * 9000) // xxxx
