@@ -22,7 +22,7 @@ colors[0] = 'blue'
 
 ## Looping
 
-```
+```js
 let colors = ['red', 'green']
 
 for(let color of colors) {
@@ -32,7 +32,7 @@ for(let color of colors) {
 
 ## length
 
-```
+```js
 let colors = ['red', 'green']
 
 colors.length
@@ -40,7 +40,7 @@ colors.length
 
 ## is Array?
 
-```
+```js
 let colors = ['red', 'green']
 
 Array.isArray(colors) // true
@@ -50,7 +50,7 @@ colors instanceof Array // true
 
 ## add element
 
-```
+```js
 let colors = ['red', 'green']
 colors.push('blue') // best
 
@@ -59,14 +59,14 @@ colors[colors.length] = 'blue' // bad
 
 ## .toString()
 
-```
+```js
 let colors = ['red', 'green']
 colors.toString() // 'red,green'
 ```
 
 ## remove element
 
-```
+```js
 let colors = ['red', 'green']
 colors.pop()
 
@@ -75,7 +75,7 @@ console.log(colors) // ['red']
 
 ## merging
 
-```
+```js
 let available = ['laptop', 'mobile']
 let saleout = ['headset', 'microphone']
 
@@ -86,7 +86,7 @@ allProduct = [...available, ...saleout] // [ 'laptop', 'mobile', 'headset', 'mic
 
 ## max and min
 
-```
+```js
 const prices = [100, 50, 10, 60]
 Math.max(...prices)
 
@@ -98,12 +98,14 @@ Math.max.apply(null, prices); // ok
 
 ## sort
 
-```
+```js
 colors = ["abc", "def", "efg", "bca"]
 colors.sort() // [ 'abc', 'bca', 'def', 'efg' ]
 
 console.log(colors) // [ 'abc', 'bca', 'def', 'efg' ]
+```
 
+```js
 prices = [123, 45, 324, 23]
 prices.sort() // [ 123, 23, 324, 45 ]
 
@@ -111,3 +113,22 @@ prices = [123, 45, 324, 23]
 prices.sort(function(a, b){return a - b}) // [ 23, 45, 123, 324 ]
 ```
 
+```js
+products = [
+  { name: "toy1", price: 123 },
+  { name: "toy2", price: 4 },
+  { name: "toy3", price: 324 },
+  { name: "toy4", price: 23 }
+]
+
+products.sort(function(a, b){return a.price - b.price})
+```
+
+## join
+
+```js
+let colors = ["red", "green", "blue"]
+let text = colors.join("+")
+
+console.log(text) // red+green+blue
+```
