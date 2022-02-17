@@ -104,3 +104,123 @@ const total = productPrices.reduce(function (total, value, index, arr) {
 
 console.log(total) // 5101
 ```
+
+```js
+const productPrices = [99, 2001, 3001]
+
+const total = productPrices.reduceRight(function (total, value, index, arr) {
+  return total + value
+}, 0)
+
+console.log(total) // 5101
+```
+
+## every()
+
+```js
+const age = [25, 20, 65, 50]
+
+const isAllAbove18 = age.every(function(value) {
+  return value > 18
+})
+console.log(isAbove18) // true
+```
+
+```js
+const age = [25, 20, 65, 15]
+
+const isAllAbove18 = age.every(function(value) {
+  return value > 18
+})
+console.log(isAbove18) // false
+```
+
+## some()
+
+```js
+const age = [5, 2, 6, 8]
+
+const isAnyAbove18 = age.some(function(value) {
+  return value > 18
+})
+console.log(isAnyAbove18) // false
+```
+
+```js
+const age = [5, 2, 6, 20]
+
+const isAnyAbove18 = age.some(function(value) {
+  return value > 18
+})
+console.log(isAnyAbove18) // true
+```
+
+## indexOf()
+
+```js
+const colors = ['red', 'green', 'blue', 'green']
+
+const greenIndex = colors.indexOf('green') 
+console.log(greenIndex) // 1
+```
+
+## lastIndexOf()
+
+```js
+const colors = ['red', 'green', 'blue', 'green']
+
+const greenIndex = colors.lastIndexOf('green') 
+console.log(greenIndex) // 3
+```
+
+## findIndex()
+
+```js
+const colors = ['red', 'green', 'blue', 'green']
+
+const greenIndex = colors.findIndex(function(value) {
+  return value === 'green'
+}) 
+console.log(greenIndex) // 1
+```
+
+```js
+products = [
+  { name: "toy1", price: 123 },
+  { name: "toy2", price: 4 },
+  { name: "toy3", price: 324 },
+  { name: "toy4", price: 23 }
+]
+
+const findProductIndex = products.findIndex(function (p) {
+    return p.price >= 324
+  }
+)
+console.log(findProductIndex) // 2
+```
+
+## find()
+
+```js
+const colors = ['red', 'green', 'blue', 'green']
+
+const green = colors.find(function(value) {
+  return value === 'green'
+}) 
+console.log(green) // green
+```
+
+```js
+products = [
+  { name: "toy1", price: 123 },
+  { name: "toy2", price: 4 },
+  { name: "toy3", price: 324 },
+  { name: "toy4", price: 23 }
+]
+
+const findProduct = products.find(function (p) {
+    return p.price >= 324
+  }
+)
+console.log(findProduct) // { name: "toy3", price: 324 }
+```
