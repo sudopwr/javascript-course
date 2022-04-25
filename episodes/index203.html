@@ -1,0 +1,25 @@
+<html>
+
+<head>
+    <title> Hello </title>
+</head>
+
+<body>
+    <h1 id="name">Hello</h1>
+</body>
+
+<script>
+    let i = 0
+    document.getElementById("name").innerHTML = "Hi SUDO POWER"
+
+    setInterval(function() {
+        console.log('Changing content.......')
+        if (i % 2 == 0) {
+            document.getElementById("name").style.color = "red"
+        } else {
+            document.getElementById("name").style.color = "yellow"
+        }
+        i++;
+    }, 1000)
+</script>
+</html>
