@@ -1,0 +1,26 @@
+<html>
+
+<head>
+    <title> Hello </title>
+</head>
+
+<body>
+    <h1 class="heading">Hello 1</h1>
+    <h1 class="heading" id="heading2">Hello 2</h1>
+    <h1 class="heading">Hello 3</h1>
+</body>
+
+<script>
+    document.getElementById("heading2").innerHTML = "H2"
+
+    document.getElementsByTagName("h1")[0].style.color = "red"
+
+    document.getElementsByClassName("heading")[1].style.color = "red"
+
+    document.querySelectorAll("h1")[2].style.color = "blue"
+
+    document.querySelectorAll(".heading")[2].style.color = "blue"
+
+    document.querySelector("#heading2").style.color = "blue"
+</script>
+</html>
