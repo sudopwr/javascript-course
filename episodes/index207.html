@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title> Episode 207 </title>
+    <style>
+        div {
+            margin: 10px;
+        }
+    </style>
+</head>
+
+<body>
+    <div>
+        No1 : <input type="text" id="no1" onfocus="changeColor(this)" onblur="changeColorOnBlur(this)">
+    </div>
+    <div>
+        No2 : <input type="text" id="no2" onfocus="changeColor(this)" onblur="changeColorOnBlur(this)">
+    </div>
+    <div>
+        <button id="add" onclick="add()">Add</button>
+    </div>
+    <div>
+        <h3 id="answer"></h3>
+    </div>
+</body>
+
+<script>
+    function add() {
+        const no1 = parseFloat(document.getElementById("no1").value) 
+        const no2 = parseFloat(document.getElementById("no2").value)
+
+        const sum = no1 + no2
+        document.getElementById("answer").innerText = sum
+    }
+
+    function changeColor(element) {
+        console.log(element.id, "focused")
+        element.style.backgroundColor = "aqua"
+    }
+
+    function changeColorOnBlur(element) {
+        console.log(element.id, "blured")
+        element.style.backgroundColor = "white"
+    }
+
+    document.getElementById("add").onclick = function () {
+        console.log("update add button event")
+    }
+</script>
+
+</html>
