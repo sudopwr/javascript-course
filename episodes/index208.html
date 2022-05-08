@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Episode 208 Tic Tac Toe</title>
+    <style>
+        html,
+        body {
+            height: 100%;
+            margin: 0;
+            background: rgb(237, 237, 237);
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 25px;
+        }
+
+        .container {
+            height: 100%;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            flex-direction: column;
+        }
+
+        .row {
+            width: auto;
+            margin: 5px;
+        }
+
+        button {
+            background-color: white;
+            padding: 10px 20px;
+            color: rgb(107, 105, 105);
+            font-weight: bold;
+            text-align: center;
+            border: 1px solid rgb(68, 62, 61);
+            width: 100px;
+            height: 100px;
+            font-size: 25px;
+        }
+
+        .reset-btn {
+            width: 150px;
+            height: 80px;
+            margin-top: 10px;
+            background-color: aqua;
+            color: rgb(24, 24, 24);
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="row">
+            <p>SUDO POWER - Tic Tac Toe</p>
+            <p id="playerWin"> Who win? </p>
+        </div>
+
+        <div class="row">
+            <button id="btn1" onclick="run(this)">&nbsp;</button>
+            <button id="btn2" onclick="run(this)">&nbsp;</button>
+            <button id="btn3" onclick="run(this)">&nbsp;</button>
+        </div>
+
+        <div class="row">
+            <button id="btn4" onclick="run(this)">&nbsp;</button>
+            <button id="btn5" onclick="run(this)">&nbsp;</button>
+            <button id="btn6" onclick="run(this)">&nbsp;</button>
+        </div>
+
+        <div class="row">
+            <button id="btn7" onclick="run(this)">&nbsp;</button>
+            <button id="btn8" onclick="run(this)">&nbsp;</button>
+            <button id="btn9" onclick="run(this)">&nbsp;</button>
+        </div>
+
+        <div class="row">
+            <button class="reset-btn" onclick="reset()"> RESET </button>
+        </div>
+    </div>
+</body>
+<script>
+    let sign = "X"
+    function run(btn) {
+        if (sign === "X") {
+            btn.innerText = sign
+            sign = "O"
+        } else {
+            btn.innerText = sign
+            sign = "X"
+        }
+
+        if (checkEqual(1, 2, 3)) {
+            whichPlayerWin(1)
+        } else if(checkEqual(4, 5, 6)) {
+            whichPlayerWin(4)
+        } else if(checkEqual(7, 8, 9)) {
+            whichPlayerWin(7)
+        } else if(checkEqual(1, 4, 7)) {
+            whichPlayerWin(1)
+        } else if(checkEqual(2, 5, 8)) {
+            whichPlayerWin(2)
+        } else if (checkEqual(3, 6, 9)) {
+            whichPlayerWin(3)
+        } else if (checkEqual(1, 5, 9)) {
+            whichPlayerWin(1)
+        } else if (checkEqual(3, 5, 7)) {
+            whichPlayerWin(3)
+        }
+    }
+
+    function checkEqual(first, second, third) {
+        const firstBtn = document.getElementById(`btn${first}`).innerText
+        const secondBtn = document.getElementById(`btn${second}`).innerText
+        const thirdBtn = document.getElementById(`btn${third}`).innerText
+
+        const isEqual = (firstBtn === secondBtn && secondBtn === thirdBtn) && (firstBtn === "X" || firstBtn === "O")
+        return isEqual
+    }
+
+    const playerWin = document.getElementById("playerWin")
+
+    function whichPlayerWin(first) {
+        const whichSign = document.getElementById(`btn${first}`).innerText
+        if (whichSign === "X") {
+            playerWin.innerHTML = "1st Player win"
+        } else {
+            playerWin.innerHTML = "2nd Player win"
+        }
+    }
+
+    function reset() {
+        for(let i = 1; i<=9; i++) {
+            document.getElementById(`btn${i}`).innerHTML = "&nbsp;"
+        }
+        sign = "X"
+        playerWin.innerHTML = "Who win?"
+    }
+</script>
+</html>
