@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sudo Power Youtube - Digital Clock</title>
+    <style>
+        html,
+        body {
+            height: 100%;
+            margin: 0;
+            background: black;
+            font-size: 25px;
+        }
+
+        .watch {
+            height: 100%;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            flex-direction: column;
+            font-family: Orbitron;
+            color: chartreuse;
+            font-size: 4.2rem;
+            text-shadow:
+                0 0 7px #fff,
+                0 0 42px #0fa,
+                0 0 92px #0fa,
+                0 0 151px #0fa;
+        }
+    </style>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <div class="watch" id="watch">
+        12:23:15
+    </div>
+</body>
+<script>
+    setInterval(() => {
+        const time = new Date()
+        let h = time.getHours()
+        let m = time.getMinutes()
+        let s = time.getSeconds()
+
+        h = h < 10 ? "0" + h : h
+        m = m < 10 ? "0" + m : m
+        s = s < 10 ? "0" + s : s
+
+        const watch = document.getElementById("watch")
+        watch.innerText = `${h}:${m}:${s}`
+    }, 1000);
+</script>
+
+</html>
