@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Episode 209</title>
+    <style>
+        html,
+        body {
+            height: 100%;
+            margin: 0;
+            background: black;
+            font-size: 25px;
+        }
+
+        .container {
+            height: 100%;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            flex-direction: column;
+        }
+
+        .watch {
+            font-family: 'Orbitron', sans-serif;
+            color: chartreuse;
+            font-size: 4.2rem;
+            text-shadow:
+                0 0 7px #000,
+                0 0 42px #0fa,
+                0 0 92px #0fa,
+                0 0 151px #0fa,
+                0 0 181px #0fa,
+                0 0 251px #0fa;
+        }
+    </style>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <div class="container">
+        <div class="watch" id="watch">00:00:00</div>
+    </div>
+</body>
+<script>
+    setInterval(function () {
+        const time = new Date()
+        let hr = time.getHours()
+        let mi = time.getMinutes()
+        let se = time.getSeconds()
+
+        hr = hr < 10 ? "0" + hr : hr
+        mi = mi < 10 ? "0" + mi : mi
+        se = se < 10 ? "0" + se : se
+
+        document.getElementById("watch").innerHTML = `${hr}:${mi}:${se}`
+    }, 1000)
+</script>
+
+</html>
