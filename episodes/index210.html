@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Episode 210</title>
+    <style>
+        html,
+        body {
+            height: 100%;
+            margin: 0;
+            background: black;
+            font-size: 25px;
+        }
+
+        .container {
+            height: 100%;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            flex-direction: column;
+        }
+
+        .watch {
+            font-family: Orbitron;
+            color: chartreuse;
+            font-size: 2.2rem;
+            border: 2px solid chartreuse;
+            padding: 35px 70px;
+            box-shadow: 0 0 .2rem #fff,
+                0 0 .2rem #fff,
+                0 0 2rem chartreuse,
+                0 0 0.8rem chartreuse,
+                0 0 2.8rem chartreuse,
+                inset 0 0 1.3rem chartreuse;
+        }
+
+        button {
+            margin-bottom: 70px;
+            margin-left: 20px;
+            font-size: 1.0rem;
+            font-family: Orbitron;
+            padding: 25px;
+            border: 2px solid #bc13fe;
+            background-color: black;
+            color: #bc13fe;
+            box-shadow: 0 0 .2rem #fff,
+                0 0 .2rem #fff,
+                0 0 2rem #bc13fe,
+                0 0 0.8rem #bc13fe,
+                0 0 2.8rem #bc13fe,
+                inset 0 0 1.3rem #bc13fe;
+        }
+
+        button:hover {
+            background-color: #bc13fe;
+            color: black;
+            cursor: grab;
+        }
+    </style>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <div class="container">
+        <div>
+            <button id="start" onclick="startTimer()">Start</button>
+            <button id="stop" onclick="stopTimer()">Stop</button>
+            <button id="reset" onclick="resetTimer()">Reset</button>
+        </div>
+        <div id="watch" class="watch">00:00:00</div>
+    </div>
+</body>
+<script>
+    let s = 0
+    let m = 0
+    let h = 0
+    let isTimerStart = false
+
+    setInterval(function () {
+        if (isTimerStart) {
+            s++
+
+            if (s === 60) {
+                m++
+                s = 0
+            }
+
+            if (m === 60) {
+                h++
+                m = 0
+                s = 0
+            }
+
+            s = s < 10 ? "0" + s : s
+            m = m < 10 ? "0" + parseInt(m) : m
+            h = h < 10 ? "0" + parseInt(h) : h
+
+            document.getElementById("watch").innerHTML = `${h}:${m}:${s}`
+        }
+    }, 1000)
+
+    function startTimer() {
+        isTimerStart = true
+    }
+
+    function stopTimer() {
+        isTimerStart = false
+    }
+
+    function resetTimer() {
+        isTimerStart = false
+        document.getElementById("watch").innerHTML = `00:00:00`
+        s=0
+        m=0
+        h=0
+    }
+</script>
+
+</html>
