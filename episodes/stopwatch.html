@@ -75,7 +75,7 @@
             <button id="stop" class="stop-button" onclick="stopTimer()">Stop</button>
             <button id="reset" class="reset-button" onclick="resetTimer()">Reset</button>
         </div>
-        <div class="watch" id="watch">0:0:00</div>
+        <div class="watch" id="watch">00:00:00</div>
     </div>
 </body>
 <script>
@@ -85,7 +85,7 @@
     let isTimerStart = false
 
     setInterval(() => {
-        if(isTimerStart) {
+        if (isTimerStart) {
             timeRun()
         }
     }, 1000);
@@ -98,22 +98,22 @@
         if (s === 60) {
             m++
             s = 0
-            m = m < 10 ? "0" + m : m
         }
 
         if (m === 60) {
             h++
             m = 0
             s = 0
-            h = h < 10 ? "0" + h : h
         }
 
+        h = h < 10 ? "0" + parseInt(h) : h
+        m = m < 10 ? "0" + parseInt(m) : m
         s = s < 10 ? "0" + s : s
 
         const watch = document.getElementById("watch")
         watch.innerText = `${h}:${m}:${s}`
     }
-    
+
     function startTimer() {
         isTimerStart = true
     }
@@ -123,11 +123,11 @@
     }
 
     function resetTimer() {
-        h=0
-        m=0
-        s=0
-        isTimerStart=false
-        document.getElementById("watch").innerText = "0:0:00"
+        h = 0
+        m = 0
+        s = 0
+        isTimerStart = false
+        document.getElementById("watch").innerText = "00:00:00"
     }
 </script>
 
