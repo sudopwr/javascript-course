@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sudo Power Youtube - Digital Clock</title>
+    <style>
+        html,
+        body {
+            height: 100%;
+            margin: 0;
+            background: #e9e9e9;
+            font-size: 25px;
+        }
+
+        .container {
+            height: 100%;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            flex-direction: column;
+        }
+
+        .row {
+            display: flex;
+            flex-direction: row;
+        }
+
+        .row > button {
+            padding: 10px 20px;
+            margin: 3px;
+            border: 1px solid #3d3d3d;
+            width: 50px;
+        }
+
+        input {
+            height: 35px;
+            display: flex;
+            width: 210px;
+            margin-bottom: 7px;
+            text-align: right;
+        }
+
+        .btn-number {
+            background-color: rgb(198, 250, 233);
+        }
+
+        .btn-op {
+            background-color: rgb(255, 247, 128);
+        }
+
+        .btn-dot {
+            background-color: rgb(245, 181, 158);
+        }
+
+        .btn-equal {
+            background-color: cornflowerblue;
+        }
+
+        .btn-clear {
+            background-color: rgb(113, 242, 247);
+            width: 215px !important;
+        }
+    </style>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <div class="container">
+      <div class="row">
+        <p>Calculator</p>
+      </div>
+      
+      <div class="row">
+        <input type="text" id="display">
+      </div>
+
+      <div class="row">
+        <button id="btnC" onclick="clearDisplay()" class="btn-clear">C</button>
+      </div>
+
+      <div class="row">
+        <button id="btn7" onclick="run(this)" class="btn-number">7</button>
+        <button id="btn8" onclick="run(this)" class="btn-number">8</button>
+        <button id="btn9" onclick="run(this)" class="btn-number">9</button>
+        <button id="btn/" onclick="run(this)" class="btn-op">/</button>
+      </div>
+  
+      <div class="row">
+        <button id="btn4" onclick="run(this)" class="btn-number">4</button>
+        <button id="btn5" onclick="run(this)" class="btn-number">5</button>
+        <button id="btn6" onclick="run(this)" class="btn-number">6</button>
+        <button id="btn*" onclick="run(this)" class="btn-op">*</button>
+      </div>
+  
+      <div class="row">
+        <button id="btn1" onclick="run(this)" class="btn-number">1</button>
+        <button id="btn2" onclick="run(this)" class="btn-number">2</button>
+        <button id="btn3" onclick="run(this)" class="btn-number">3</button>
+        <button id="btn-" onclick="run(this)" class="btn-op">-</button>
+      </div>
+
+
+      <div class="row">
+        <button id="btn0" onclick="run(this)" class="btn-number">0</button>
+        <button id="btn." onclick="run(this)" class="btn-dot">.</button>
+        <button id="btn=" onclick="calculate(this)" class="btn-equal">=</button>
+        <button id="btn+" onclick="run(this)" class="btn-op">+</button>
+      </div>
+    </div>
+  </body>
+
+  <script>
+    let displayText = ''
+    let display = document.getElementById("display")
+    display.value = 0
+    function run(ele) {
+      const eleText = ele.innerText
+      displayText = displayText + eleText
+      display.value = displayText
+    }
+
+    function clearDisplay() {
+      display.value = 0
+      displayText = ''
+    }
+
+    function calculate() {
+      const filteredData = filterData(display.value)
+      const ans = calculationAlgorithm(filteredData)
+      display.value = ans
+    }
+
+    function filterData(data) {
+      let number = ''
+      const filteredData = []
+      for(c of data) {
+        if (c === '+' || c === '-' || c === '*' || c === '/') {
+          filteredData.push(number)
+          filteredData.push(c)
+          number = ''
+          continue
+        }
+        number += c
+      }
+      filteredData.push(number)
+      return filteredData
+    }
+
+    function calculationAlgorithm(data = []) {
+      if(data.length == 1) {
+        return data[0]
+      }
+
+      const divIndex = data.indexOf("/") 
+      const mulIndex = data.indexOf("*") 
+      const subIndex = data.indexOf("-") 
+      const addIndex = data.indexOf("+") 
+      let index = 0
+      let ans = 0
+
+      if (divIndex != -1) {
+        ans = parseFloat(data[divIndex-1]) /  parseFloat(data[divIndex+1])
+        index = divIndex
+      } else if (mulIndex != -1) {
+        ans =  parseFloat(data[mulIndex-1]) *  parseFloat(data[mulIndex+1])
+        index = mulIndex
+      } else if (subIndex != -1) {
+        ans =  parseFloat(data[subIndex-1]) - parseFloat(data[subIndex+1])
+        index = subIndex
+      } else if (addIndex != -1) {
+        ans =  parseFloat(data[addIndex-1]) + parseFloat(data[addIndex+1])
+        index = addIndex
+      }
+
+      data.splice(index, 1)
+      data.splice(index, 1)
+      data[index-1] = ans
+      return calculationAlgorithm(data)
+    }
+  </script>
+</html>
