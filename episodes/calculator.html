@@ -67,9 +67,6 @@
             width: 215px !important;
         }
     </style>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron&display=swap" rel="stylesheet">
 </head>
 
 <body>
@@ -166,23 +163,40 @@
       let index = 0
       let ans = 0
 
-      if (divIndex != -1) {
-        ans = parseFloat(data[divIndex-1]) /  parseFloat(data[divIndex+1])
+      if (divIndex != -1 && mulIndex != -1) {
+        if (divIndex < mulIndex) {
+          ans = parseFloat(data[divIndex-1]) /  parseFloat(data[divIndex+1])
+          index = divIndex
+        } else {
+          ans = parseFloat(data[mulIndex-1]) *  parseFloat(data[mulIndex+1])
+          index = mulIndex
+        }
+      } else if (divIndex != -1) {
+        ans = parseFloat(data[divIndex-1]) / parseFloat(data[divIndex+1])
         index = divIndex
       } else if (mulIndex != -1) {
         ans =  parseFloat(data[mulIndex-1]) *  parseFloat(data[mulIndex+1])
         index = mulIndex
-      } else if (subIndex != -1) {
-        ans =  parseFloat(data[subIndex-1]) - parseFloat(data[subIndex+1])
-        index = subIndex
+      } else if (addIndex != -1 && subIndex != -1) {
+        if (addIndex < subIndex) {
+          ans = parseFloat(data[addIndex-1]) +  parseFloat(data[addIndex+1])
+          index = addIndex
+        } else {
+          ans = parseFloat(data[subIndex-1]) -  parseFloat(data[subIndex+1])
+          index = subIndex
+        }
       } else if (addIndex != -1) {
         ans =  parseFloat(data[addIndex-1]) + parseFloat(data[addIndex+1])
         index = addIndex
+      } else if (subIndex != -1) {
+        ans =  parseFloat(data[subIndex-1]) - parseFloat(data[subIndex+1])
+        index = subIndex
       }
 
       data.splice(index, 1)
       data.splice(index, 1)
       data[index-1] = ans
+      console.log(data)
       return calculationAlgorithm(data)
     }
   </script>

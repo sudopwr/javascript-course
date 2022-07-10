@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SUDO POWER - Calculator</title>
+    <style>
+        html,
+        body {
+            height: 100%;
+            margin: 0;
+            background: #e9e9e9;
+            font-size: 25px;
+        }
+
+        .container {
+            height: 100%;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            flex-direction: column;
+        }
+
+        .row {
+            display: flex;
+            flex-direction: row;
+        }
+
+        .row > button {
+            padding: 10px 20px;
+            margin: 3px;
+            border: 1px solid #3d3d3d;
+            width: 50px;
+        }
+
+        input {
+            height: 35px;
+            display: flex;
+            width: 210px;
+            margin-bottom: 7px;
+            text-align: right;
+        }
+
+        .btn-number {
+            background-color: rgb(198, 250, 233);
+        }
+
+        .btn-op {
+            background-color: rgb(255, 247, 128);
+        }
+
+        .btn-dot {
+            background-color: rgb(245, 181, 158);
+        }
+
+        .btn-equal {
+            background-color: cornflowerblue;
+        }
+
+        .btn-clear {
+            background-color: rgb(113, 242, 247);
+            width: 215px !important;
+        }
+    </style>
+
+</head>
+<body>
+    <div class="container">
+        <div class="row">
+            <p>Calculator</p>
+        </div>
+
+        <div class="row">
+            <input type="text" id="display" />
+        </div>        
+
+        <div class="row">
+            <button id="btnC" class="btn-clear" onclick="clearDisplay()">Clear</button>
+        </div>
+
+        <div class="row">
+            <button class="btn-number" onclick="addText(this)" id="btn7">7</button>
+            <button class="btn-number" onclick="addText(this)" id="btn8">8</button>
+            <button class="btn-number" onclick="addText(this)" id="btn9">9</button>
+            <button class="btn-op" onclick="addText(this)" id="btn/">/</button>
+        </div>
+
+        <div class="row">
+            <button class="btn-number" onclick="addText(this)" id="btn4">4</button>
+            <button class="btn-number" onclick="addText(this)" id="btn5">5</button>
+            <button class="btn-number" onclick="addText(this)" id="btn6">6</button>
+            <button class="btn-op" onclick="addText(this)" id="btn*">*</button>
+        </div>
+
+        <div class="row">
+            <button class="btn-number" onclick="addText(this)" id="btn1">1</button>
+            <button class="btn-number" onclick="addText(this)" id="btn2">2</button>
+            <button class="btn-number" onclick="addText(this)" id="btn3">3</button>
+            <button class="btn-op" onclick="addText(this)" id="btn-">-</button>
+        </div>
+        
+        <div class="row">
+            <button class="btn-number" onclick="addText(this)" id="btn4">0</button>
+            <button class="btn-dot" onclick="addText(this)" id="btn5">.</button>
+            <button class="btn-equal" onclick="final()" id="btn6">=</button>
+            <button class="btn-op" onclick="addText(this)" id="btn*">+</button>
+        </div>
+    </div>
+</body>
+<script>
+    const display = document.getElementById("display")
+
+    function addText(ele) {
+        display.value += ele.innerHTML
+    }
+
+    function clearDisplay() {
+        display.value = ''
+    }
+
+    function final() {
+        const filteredData = filterData(display.value)
+        console.log(filteredData)
+        const final = calculation(filteredData)
+        console.log("final answer: ", final)
+        display.value = final
+    }
+
+    function filterData(data) {
+        let number = ''
+        const filteredData = []
+        for (character of data) {
+            if (character === "+" || character === "-" || character === "/" || character === "*") {
+                filteredData.push(number)
+                filteredData.push(character)
+                number = ''
+                continue
+            }
+
+            number += character
+        }
+
+        filteredData.push(number)
+        return filteredData
+    }
+
+    // "20+40+50"
+    // ["20", "+", "40", "+", "50"]
+    // ["60", "+", "50"]
+    function calculation(arrayExpression = []) {
+        if (arrayExpression.length === 1) {
+            return arrayExpression[0]
+        }
+
+        const addIndex = arrayExpression.indexOf("+")
+        const subIndex = arrayExpression.indexOf("-")
+        const mulIndex = arrayExpression.indexOf("*")
+        const divIndex = arrayExpression.indexOf("/")
+        let ans = 0
+        let index = 0
+
+        if (divIndex != -1 && mulIndex != -1) { // 100 * 20 / 30
+            if (divIndex < mulIndex) {
+                ans = parseFloat(arrayExpression[divIndex-1]) / parseFloat(arrayExpression[divIndex+1])
+                index = divIndex
+            } else {
+                ans = parseFloat(arrayExpression[mulIndex-1]) * parseFloat(arrayExpression[mulIndex+1])
+                index = mulIndex
+            }
+        } else if (divIndex != -1) { // 100 / 20 + 40 - 10
+            ans = parseFloat(arrayExpression[divIndex-1]) / parseFloat(arrayExpression[divIndex+1])
+            index = divIndex
+        } else if(mulIndex != -1) {
+            ans = parseFloat(arrayExpression[mulIndex-1]) * parseFloat(arrayExpression[mulIndex+1])
+            index = mulIndex
+        } else if (addIndex != -1 && subIndex != -1) { // 100 - 20 + 30
+            if (addIndex < subIndex) {
+                ans = parseFloat(arrayExpression[addIndex-1]) + parseFloat(arrayExpression[addIndex+1])
+                index = addIndex
+            } else {
+                ans = parseFloat(arrayExpression[subIndex-1]) - parseFloat(arrayExpression[subIndex+1])
+                index = subIndex
+            }
+        } else if(addIndex != -1) {
+            ans = parseFloat(arrayExpression[addIndex-1]) + parseFloat(arrayExpression[addIndex+1])
+            index = addIndex
+        } else if(subIndex != -1) {
+            ans = parseFloat(arrayExpression[subIndex-1]) - parseFloat(arrayExpression[subIndex+1])
+            index = subIndex
+        }
+
+        arrayExpression.splice(index, 1) // ["20", "40", "+", "50"]
+        arrayExpression.splice(index, 1) // ["20", "+", "50"]
+        arrayExpression[index - 1] = ans // ["60", "+", "50"]
+        return calculation(arrayExpression) // ["60", "+", "50"] // [110]
+    }
+</script>
+</html>
