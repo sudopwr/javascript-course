@@ -20,7 +20,7 @@
 
 <body>
   <div class="container h-100 d-flex align-items-center justify-content-center flex-column">
-    <div class="card">
+    <div class="card" style="width: 28rem;">
       <div class="card-body">
         <div class="row">
           <h2 class="card-title text-center">TODO App</h2>
@@ -28,31 +28,85 @@
 
         <div class="row g-2 mt-2">
           <div class="col-auto">
-            <input type="text" class="form-control border border-secondary border-2" id="iTodo">
+            <div class="input-group input-group-lg">
+              <input type="text" class="form-control border border-secondary border-2" aria-label="Sizing example input"
+                aria-describedby="inputGroup-sizing-lg">
+            </div>
           </div>
           <div class="col-auto">
-            <button id="add" type="button" class="btn btn-primary"><i class="fas fa-plus"></i></button>
+            <button id="add" type="button" class="btn btn-primary btn-lg"><i class="fas fa-plus"></i></button>
           </div>
         </div>
 
         <div class="row g-3 p-2 mt-2 text-left" id="tasks">
-          <div class="px-3 py-1 mb-2 bg-dark bg-opacity-10">
-            <div class="row">
-              <div class="col-auto p-2">
-                border border-primary border-2 rounded
-              </div>
-              <div class="col-auto">
-                <button id="add" type="button" class="btn btn-light text-danger">
-                  <i class="fas fa-trash"></i>
-                </button>
-              </div>
-            </div>
-          </div>
         </div>
       </div>
     </div>
   </div>
 </body>
 <script src="https://kit.fontawesome.com/9418f17761.js" crossorigin="anonymous"></script>
+
+<script>
+  var todos = [{
+    id: randomId(),
+    title: "Wake up",
+    isCompleted: false
+  }, {
+    id: randomId(),
+    title: "Do excercise",
+    isCompleted: false
+  }, {
+    id: randomId(),
+    title: "Take a milk shake",
+    isCompleted: false
+  }, {
+    id: randomId(),
+    title: "Make a insta post for SUDO POWER",
+    isCompleted: false
+  }, {
+    id: randomId(),
+    title: "Lunch time :)",
+    isCompleted: false
+  }, {
+    id: randomId(),
+    title: "Regular work hours",
+    isCompleted: false
+  }]
+
+  renderTODOs(todos)
+
+  function renderTODOs(todos) {
+    const tasksDiv = document.getElementById("tasks")
+    let todoDivs = ''
+
+    for (todo of todos) {
+      todoDivs += makeTODO(todo)
+    }
+
+    tasksDiv.innerHTML = todoDivs
+  }
+
+  function randomId() {
+    return Math.floor(1000 + Math.random() * 9000);
+  }
+
+  function makeTODO(todo) {
+    return `<div id="${todo.id}" class="container px-3 py-1 mb-2 bg-dark bg-opacity-10 border border-secondary border-2">
+            <div class="row">
+              <div class="col-1 p-2">
+                <input class="form-check-input" type="checkbox" value="" />
+              </div>
+              <div class="col-9 p-2">
+                ${todo.title}
+              </div>
+              <div class="col-1">
+                <button id="add" type="button" class="btn btn-light bg-opacity-10 text-danger">
+                  <i class="fas fa-trash"></i>
+                </button>
+              </div>
+            </div>
+          </div>`
+  }
+</script>
 
 </html>
