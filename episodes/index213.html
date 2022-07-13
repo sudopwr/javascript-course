@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SUDO POWER - JS Animation</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+    <style>
+        html,
+        body {
+            height: 100%;
+            margin: 0;
+            background: rgb(2, 0, 36);
+            background: linear-gradient(90deg, rgba(2, 0, 36, 1) 0%, rgba(9, 9, 121, 1) 20%, rgba(0, 212, 255, 1) 100%);
+            /* https://cssgradient.io/ */
+            font-size: 25px;
+            font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+        }
+
+        .container {
+            height: 100%;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            flex-direction: column;
+        }
+
+        .row {
+            display: flex;
+            flex-direction: row;
+            margin-top: 10px;
+        }
+
+        button {
+            margin-left: 5px;
+            padding: 5px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="row">
+            <img id="img" src="../images/duck.png" height="200px" />
+        </div>
+
+        <div class="row">
+            <button id="bounce" onclick="bounce()">Bounce</button>
+            <button id="fade" onclick="fade()">Fade</button>
+        </div>
+    </div>
+
+    <br>
+</body>
+
+<script>
+    // class="animate__animated animate__bounce"
+    const img = document.getElementById("img")
+    img.classList.add("animate__animated")
+
+    function bounce() {
+        img.classList.add("animate__bounce")
+        img.classList.remove("animate__fadeInDown")
+    }
+
+    function fade() {
+        img.classList.add("animate__fadeInDown")
+        img.classList.remove("animate__bounce")
+    }
+</script>
+
+</html>
