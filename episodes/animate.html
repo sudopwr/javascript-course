@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>animation</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+  <style>
+    html,
+    body {
+      height: 100%;
+      margin: 0;
+      background: rgb(238, 174, 202);
+      background: radial-gradient(circle, rgba(238, 174, 202, 1) 0%, rgba(148, 187, 233, 1) 100%);
+      /* https://cssgradient.io/ */
+      font-size: 25px;
+      font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    }
+
+    .container {
+      height: 100%;
+      padding: 0;
+      margin: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      flex-direction: column;
+    }
+
+    .row {
+      display: flex;
+      flex-direction: row;
+      margin-top: 10px;
+    }
+
+    button {
+      margin-left: 5px;
+      padding: 5px;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <div class="row">
+      <img src="../images/duck.png" height="200px" id="duck">
+    </div>
+
+    <div class="row">
+      <button onclick="bounce()">Bounce</button>
+      <button onclick="shake()">Shake</button>
+      <button onclick="fade()">Fade</button>
+    </div>
+  </div>
+</body>
+
+<script>
+  const duck = document.getElementById("duck")
+  duck.classList.add('animate__animated')
+
+  function bounce() {
+    duck.classList.remove('animate__fadeInDown')
+    duck.classList.remove('animate__shakeX')
+    duck.classList.add('animate__bounce')
+  }
+
+  function shake() {
+    duck.classList.remove('animate__fadeInDown')
+    duck.classList.remove('animate__bounce')
+    duck.classList.add('animate__shakeX')
+  }
+
+  function fade() {
+    duck.classList.remove('animate__bounce')
+    duck.classList.remove('animate__shakeX')
+    duck.classList.add('animate__fadeInDown')
+  }
+</script>
+
+</html>
