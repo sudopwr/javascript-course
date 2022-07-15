@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TODO App</title>
+    <style>
+        #tasks {
+            margin-top: 10px;
+        }
+
+        .task {
+            padding: 5px;
+            border: 2px solid #000000;
+            margin-top: 3px;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>TODO App</h1>
+    <input type="text" id="iTodo" />
+    <button id="add" onclick="addTodo()">Add</button>
+
+    <div id="tasks">
+
+    </div>
+</body>
+<script>
+    let todos = [
+        {
+            title: 'Task 1',
+            isCompleted: false,
+            id: randomId(),
+        },
+        {
+            title: 'Task 2',
+            isCompleted: false,
+            id: randomId(),
+        },
+        {
+            title: 'Task 3',
+            isCompleted: false,
+            id: randomId(),
+        },
+        {
+            title: 'Task 4',
+            isCompleted: false,
+            id: randomId(),
+        },
+    ]
+
+    renderTodos()
+
+    function addTodo() {
+        const iTodo = document.getElementById("iTodo")
+        const title = iTodo.value
+        todos.push({
+            id: randomId(),
+            title: title,
+            isCompleted: false
+        })
+
+        iTodo.value = ''
+        renderTodos()
+    }
+
+    function renderTodos() {
+        let makeTodos = ''
+        for (todo of todos) {
+            const todoDiv = `
+            <div class="task" id="todoDiv${todo.id}">
+                <input type="checkbox" id="todoCheckbox${todo.id}" onclick="completeTodo(${todo.id})" />
+                <span id="todoTitle${todo.id}"> ${todo.title} <span>
+                <button id="todoDeleteButton${todo.id}" onclick="deleteTodo(${todo.id})">Delete</button>
+            </div>
+            `
+            makeTodos += todoDiv
+        }
+
+        document.getElementById("tasks").innerHTML = makeTodos
+        designCheckbox()
+    }
+
+    function deleteTodo(id) {
+        if (confirm("Are you sure?")) {
+            todos = todos.filter(todo => todo.id != id)
+            renderTodos()
+        }
+    }
+
+    function completeTodo(id) {
+
+        const foundIndex = todos.findIndex(todo => todo.id == id)
+        todos[foundIndex].isCompleted = !todos[foundIndex].isCompleted
+
+        renderTodos()
+    }
+
+    function designCheckbox(id) {
+        for (todo of todos) {
+            const checkbox = document.getElementById(`todoCheckbox${todo.id}`)
+
+            if (todo.isCompleted) {
+                checkbox.checked = true
+                const title = document.getElementById(`todoTitle${todo.id}`)
+                title.style.textDecoration = 'line-through'
+
+                const todoDiv = document.getElementById(`todoDiv${todo.id}`)
+                todoDiv.style.borderColor = 'green'
+                todoDiv.style.backgroundColor = '#d9f6d9'
+            } else {
+                checkbox.checked = false
+            }
+        }
+    }
+
+    function randomId() {
+        return Math.floor(1000 + Math.random() * 9000);
+    }
+</script>
+
+</html>
