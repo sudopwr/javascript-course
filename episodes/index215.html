@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Local Storage | SUDO POWER</title>
+</head>
+<body>
+    <input type="text" id="email" />
+    <h1 id="displayEmail">empty</h1>
+
+    <button id="saveLocalStorage" onclick="saveLocalStorage()">saveLocalStorage</button>
+    <button id="getLocalStorage" onclick="getLocalStorage()">getLocalStorage</button>
+
+    <br> <hr>
+
+    <button id="saveSessionStorage" onclick="saveSessionStorage()">saveSessionStorage</button>
+    <button id="getSessionStorage" onclick="getSessionStorage()">getSessionStorage</button>
+</body>
+<script>
+    const email = document.getElementById("email")
+
+    function saveLocalStorage() {
+        localStorage.setItem("email", email.value)
+    }
+
+    function saveSessionStorage() {
+        sessionStorage.setItem("email", email.value)
+    }
+
+    function getLocalStorage() {
+        document.getElementById("displayEmail").innerText = localStorage.getItem("email")
+    }
+
+    
+    function getSessionStorage() {
+        document.getElementById("displayEmail").innerText = sessionStorage.getItem("email")   
+    }
+</script>
+</html>
