@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fetch API</title>
+    <style>
+        body {
+            background-color: rgb(250, 233, 210);
+            color: #999997;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        .todo {
+            padding: 5px;
+            border: 2px solid #999998;
+            margin-bottom: 3px;
+        }
+
+        .user {
+            padding: 5px;
+            border: 2px solid #fca766;
+            margin-bottom: 3px;
+            color: #fca766;
+        }
+    </style>
+</head>
+<body>
+    <button id="btnUsers" onclick="getUsers()">Users</button>
+    <button id="btnTodos" onclick="getTodos()">Todos</button>
+    <hr />
+    <div id="data">
+
+    </div>
+</body>
+<script>
+    // async function getTodosJson() {
+    //      const data = await fetch("https://jsonplaceholder.typicode.com/todos")
+    //      console.log(await data.json())
+    // }
+
+    // getTodosJson()
+
+    const data = document.getElementById("data")
+
+    function getTodos() {
+        data.innerHTML = ""
+        fetch("https://jsonplaceholder.typicode.com/todos")
+        .then(data => data.json())
+        .then(jsonData => {
+            for (todo of jsonData) {
+                let div = document.createElement("div")
+                div.innerText = todo.title
+                div.classList.add('todo')
+                data.appendChild(div)
+            }
+        })
+        .catch(e => console.log(e))
+    }
+
+    
+    function getUsers() {
+        data.innerHTML = ""
+        fetch("https://jsonplaceholder.typicode.com/users")
+        .then(data => data.json())
+        .then(jsonData => {
+            for (user of jsonData) {
+                let div = document.createElement("div")
+                div.innerText = user.name
+                div.classList.add('user')
+                data.appendChild(div)
+            }
+        })
+        .catch(e => console.log(e))
+    }
+</script>
+</html>
