@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>fetch() API Call</title>
+</head>
+<body>
+    <button id="btnUsers" onclick="getUsers()">Users</button>
+    <button id="btnTodos" onclick="getTodos()">Todos</button>
+
+    <hr/>
+
+    <div id="data">
+
+    </div>
+</body>
+
+<script>
+    const data = document.getElementById("data")
+    function getUsers() {
+        data.innerHTML = 'Loading......'
+
+        fetch("https://jsonplaceholder.typicode.com/users")
+            .then((response) => {
+                data.innerHTML = ''
+                return response.json()
+            })
+            .then((jsonData) => {
+                console.log(jsonData)
+
+                for (user of jsonData) {
+                    const userDataDiv = document.createElement("div")
+                    userDataDiv.innerHTML = user.email
+                    userDataDiv.id = user.id
+
+                    data.appendChild(userDataDiv)
+                }
+            })
+            .catch(e => console.log(e))
+    }
+
+    function getTodos() {
+        data.innerHTML = 'Loading......'
+
+        fetch("https://jsonplaceholder.typicode.com/todos")
+            .then((response) => {
+                data.innerHTML = ''
+                return response.json()
+            })
+            .then((jsonData) => {
+                console.log(jsonData)
+
+                for (todo of jsonData) {
+                    const userDataDiv = document.createElement("div")
+                    userDataDiv.innerHTML = todo.title
+                    userDataDiv.id = todo.id
+
+                    data.appendChild(userDataDiv)
+                }
+            })
+            .catch(e => console.log(e))
+    }
+</script>
+</html>
