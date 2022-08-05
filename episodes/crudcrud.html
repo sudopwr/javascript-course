@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>REST CRUD Operation</title>
+    <style>
+        body {
+            background: rgb(2, 0, 36);
+            background: linear-gradient(90deg, rgb(90, 90, 247) 33%, rgba(0, 212, 255, 1) 100%);
+        }
+    </style>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+</head>
+
+<body>
+    <div class="container h-100 d-flex align-items-center justify-content-center flex-column">
+        <div class="card w-100 mt-3">
+            <div class="card-body">
+                <form>
+                    <div class="row g-3">
+                        <div class="col-sm">
+                            <input type="text" class="form-control" placeholder="Enter Blog Title" id="blog-title" />
+                        </div>
+                        <div class="col-sm-7">
+                            <input type="text" class="form-control" placeholder="Enter content" id="blog-content" />
+                        </div>
+                        <div class="col-sm">
+                            <button type="button" class="btn btn-primary" onclick="addBlog()">Submit</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <div class="card w-100 mt-3">
+            <div class="card-body" id="data-div">
+                
+            </div>
+        </div>
+    </div>
+</body>
+<script>
+    const api = "https://crudcrud.com/api/d468777475114df68a2aacb911f1c762/blogs"
+    const dataDiv = document.getElementById("data-div")
+    getBlogs()
+
+    function getBlogs() {
+        dataDiv.innerHTML = ''
+        fetch(api)
+            .then(response => response.json())
+            .then((json) => {
+                for (blog of json) {
+                    addBlogToDiv(blog)
+                }
+            })
+            .catch(e => console.log(e))
+    }
+
+    function addBlog() {
+        const title = document.getElementById("blog-title").value
+        const content = document.getElementById("blog-content").value
+
+        fetch(api, {
+            body: JSON.stringify({
+                title,
+                content
+            }),
+            method: "post",
+            headers: {
+                "Content-Type": "application/json"
+            }
+        })
+            .then(response => response.json())
+            .then((json) => {
+                addBlogToDiv(json)
+                alert("Successfully added !!!")
+            })
+            .catch(e => console.log(e))
+    }
+
+    function addBlogToDiv(blog) {
+        const blogDiv = document.createElement("div")
+        blogDiv.id = blog._id
+        blogDiv.classList.add("card", "text-bg-light", "border-info", "mb-3")
+        blogDiv.innerHTML = `
+            <div class="card-body">
+                <h5 class="card-title">${blog.title}</h5>
+                <p class="card-text">${blog.content}</p>
+            </div>
+            <div class="card-footer bg-transparent border-success">
+                <button class="btn btn-primary" onclick="editBlog('${blog._id}')">Edit</button>
+                <button class="btn btn-danger" onclick="deleteBlog('${blog._id}')">Delete</button>
+            </div>
+        `
+        dataDiv.appendChild(blogDiv)
+    }
+
+    function deleteBlog(id) {
+        if (!confirm("Are you sure")) {
+            return
+        }
+        
+        fetch(`${api}/${id}`, {
+            method: "delete",
+        })
+            .then(response => {
+                if (response.ok) {
+                    getBlogs()
+                }
+            })
+            .catch(e => console.log(e))
+    }
+</script>
+
+</html>
