@@ -70,7 +70,7 @@
     getPokemon()
 
     function getPokemon() {
-        axios.get('https://pokeapi.co/api/v2/pokemon?limit=30')
+        axios.get('https://pokeapi.co/api/v2/pokemon?limit=200')
             .then((response) => {
                 const data = response.data.results
                 for (poke of data) {
@@ -111,6 +111,7 @@
                 document.getElementById("poke-moves").innerHTML = moves.map(move => move.move.name).join(",")
                 document.getElementById("poke-type").innerHTML = types.map(type => type.type.name).join(",")
                 document.getElementById("poke-img").src = sprites.other.dream_world.front_default
+                document.body.scrollTop = document.documentElement.scrollTop = 0;
             })
             .catch((error) => console.log(error))
     }
