@@ -57,7 +57,7 @@
     crossorigin="anonymous"></script>
 
 <script>
-    const api = "https://crudcrud.com/api/477634ec0fa640b09c2e7503f2c40f78/blogs"
+    const api = "http://localhost:3000/blogs"
     const dataDiv = document.getElementById("data-div")
     getBlogs()
 
@@ -83,23 +83,22 @@
     function addBlog() {
         const title = blogTitle.value
         const content = blogContent.value
-
         const apiUrl = blogId.value ? `${api}/${blogId.value}` : api  
         const method = blogId.value ? "put" : "post"
 
-        fetch(api, {
+        fetch(apiUrl, {
             body: JSON.stringify({
                 title,
                 content
             }),
-            method: "post",
+            method: method,
             headers: {
                 "Content-Type": "application/json"
             }
         })
             .then(response => response.json())
             .then((json) => {
-                addBlogToDiv(json)
+                getBlogs()
                 toast.show()
                 blogId.value = ''
                 blogTitle.value = ''
@@ -110,7 +109,7 @@
 
     function addBlogToDiv(blog) {
         const blogDiv = document.createElement("div")
-        blogDiv.id = blog._id
+        blogDiv.id = blog.id
         blogDiv.classList.add("card", "text-bg-light", "border-info", "mb-3")
         blogDiv.innerHTML = `
             <div class="card-body">
@@ -118,8 +117,8 @@
                 <p class="card-text">${blog.content}</p>
             </div>
             <div class="card-footer bg-transparent border-success">
-                <button class="btn btn-primary" onclick="editBlog('${blog._id}')">Edit</button>
-                <button class="btn btn-danger" onclick="deleteBlog('${blog._id}')">Delete</button>
+                <button class="btn btn-primary" onclick="editBlog('${blog.id}')">Edit</button>
+                <button class="btn btn-danger" onclick="deleteBlog('${blog.id}')">Delete</button>
             </div>
         `
         dataDiv.appendChild(blogDiv)
@@ -148,7 +147,7 @@
         })
             .then(response => response.json())
             .then(json => {
-                blogId.value = json._id
+                blogId.value = json.id
                 blogTitle.value = json.title
                 blogContent.value = json.content
             })
