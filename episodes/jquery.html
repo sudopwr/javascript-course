@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JavaScript vs JQuery</title>
+    <style>
+        #title {
+            background-color: antiquewhite;
+            border: 2px solid #b9b9b9;
+            padding: 20px;
+        }
+    </style>
+</head>
+
+<body>
+    <h1 id="title" class="heading">Hello</h1>
+    <button id="hide" onclick="hide()">Hide</button>
+    <button id="show" onclick="show()">Show</button>
+    <button id="animation" onclick="animation()">Animation</button>
+</body>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"
+    integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ=="
+    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+<script>
+    const title = document.getElementById("title")
+    title.innerHTML = "Hi"
+    title.innerText = "Hi"
+
+    function hide() {
+        $("#title").hide(1000)
+    }
+
+    function show() {
+        $("#title").show(1000)
+    }
+
+    function animation() {
+        $("#title").animate({
+            width: "70%",
+            opacity: 0.4,
+            fontSize: "50px",
+            borderWidth: "10px"
+        }, 1500);
+    }
+</script>
+
+</html>
