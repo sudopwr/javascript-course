@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pokeapi.co</title>
+</head>
+<body>
+    <h1>Pokeapi.co</h1>
+    <div id="poke-list">
+
+    </div>
+
+    <div id="poke-info">
+        <img src="" id="poke-img"/>
+        <h2 id="poke-name"></h2>
+        <h3 id="poke-type"></h2>
+        <h3 id="poke-move"></h2>
+    </div>
+</body>
+
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+
+<script>
+
+    const pokeList = document.getElementById('poke-list')
+
+    getListPokemon()
+
+    async function getListPokemon() {
+        const response = await axios({ url: "https://pokeapi.co/api/v2/pokemon", method: "get" })
+        const { data: { results }} = response
+
+        console.log(results)
+
+        for(pokemon of results) {
+            const urlArr = pokemon.url.split("/")
+            const id = (urlArr.pop(), urlArr.pop())
+
+            const btn = document.createElement("button")
+            
+            const span = document.createElement("span")
+            span.innerHTML = pokemon.name
+
+            const img = document.createElement("img")
+            img.src = `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/${id}.svg`
+            img.style.width = "20px"
+
+            btn.appendChild(img)
+            btn.appendChild(span)
+
+            btn.setAttribute("onclick", `getPokemon(${id})`)
+
+            pokeList.appendChild(btn)
+        }
+    }
+
+    async function getPokemon(id) {
+        const response = await axios.get(`https://pokeapi.co/api/v2/pokemon/${id}`)
+        const { data: { name, types, moves, sprites } } = response
+
+        const pokeImg = document.getElementById('poke-img')
+        const pokeName = document.getElementById('poke-name')
+        const pokeType = document.getElementById('poke-type')
+        const pokeMove = document.getElementById('poke-move')
+
+        pokeImg.src = sprites.other.dream_world.front_default
+        pokeName.innerHTML = name
+        pokeType.innerHTML = types.map(type => type.type.name).join(",")
+        pokeMove.innerHTML = moves.map(move => move.move.name).join(",")
+    }
+    
+</script>
+</html>
