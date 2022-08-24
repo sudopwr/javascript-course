@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Axios REST CRUD Operation</title>
+    <style>
+        body {
+            background: rgb(2, 0, 36);
+            background: linear-gradient(90deg, rgb(90, 90, 247) 33%, rgba(0, 212, 255, 1) 100%);
+        }
+    </style>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous">
+</head>
+
+<body>
+    <div class="container h-100 d-flex align-items-center justify-content-center flex-column">
+        <div class="card w-100 mt-3">
+            <div class="card-body">
+                <form>
+                    <div class="row g-3">
+                        <input type="hidden" id="blog-id" />
+                        <div class="col-sm">
+                            <input type="text" class="form-control" placeholder="Enter Blog Title" id="blog-title" />
+                        </div>
+                        <div class="col-sm-7">
+                            <input type="text" class="form-control" placeholder="Enter content" id="blog-content" />
+                        </div>
+                        <div class="col-sm">
+                            <button type="button" class="btn btn-primary" onclick="addBlog()">Submit</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <div class="card w-100 mt-3">
+            <div class="card-body" id="data-div">
+
+            </div>
+        </div>
+    </div>
+    <div class="toast-container position-fixed top-0 end-0 p-3">
+        <div id="success-toast" class="toast text-bg-primary" role="alert" aria-live="assertive" aria-atomic="true"
+            data-bs-autohide="true">
+            <div class="toast-body">
+                Success !
+            </div>
+        </div>
+    </div>
+</body>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa"
+    crossorigin="anonymous"></script>
+
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+
+<script>
+    const api = "http://localhost:3000/blogs"
+    const dataDiv = document.getElementById("data-div")
+    getBlogs()
+
+    const successToast = document.getElementById("success-toast")
+    const toast = new bootstrap.Toast(successToast)
+
+    const blogId = document.getElementById("blog-id")
+    const blogTitle = document.getElementById("blog-title")
+    const blogContent = document.getElementById("blog-content")
+
+    async function getBlogs() {
+        dataDiv.innerHTML = ''
+        const { data } = await axios({ url: api, method: "get" })
+        for (blog of data) {
+            addBlogToDiv(blog)
+        }
+    }
+
+    async function addBlog() {
+        const title = blogTitle.value
+        const content = blogContent.value
+        const apiUrl = blogId.value ? `${api}/${blogId.value}` : api
+        const method = blogId.value ? "put" : "post"
+
+        try {
+            const response = await axios({ url: apiUrl, method, data: { title, content } })
+            await getBlogs()
+            toast.show()
+            blogId.value = ''
+            blogTitle.value = ''
+            blogContent.value = ''
+        } catch (e) {
+            console.log(e)
+        }
+    }
+
+    function addBlogToDiv(blog) {
+        const blogDiv = document.createElement("div")
+        blogDiv.id = blog.id
+        blogDiv.classList.add("card", "text-bg-light", "border-info", "mb-3")
+        blogDiv.innerHTML = `
+            <div class="card-body">
+                <h5 class="card-title">${blog.title}</h5>
+                <p class="card-text">${blog.content}</p>
+            </div>
+            <div class="card-footer bg-transparent border-success">
+                <button class="btn btn-primary" onclick="editBlog('${blog.id}')">Edit</button>
+                <button class="btn btn-danger" onclick="deleteBlog('${blog.id}')">Delete</button>
+            </div>
+        `
+        dataDiv.appendChild(blogDiv)
+    }
+
+    async function deleteBlog(id) {
+        if (!confirm("Are you sure")) {
+            return
+        }
+        try {
+            const response = await axios({ url: `${api}/${id}`, method: "delete" })
+            await getBlogs()
+            toast.show()
+        } catch (e) {
+            console.log('delete', e)
+        }
+    }
+
+    async function editBlog(id) {
+        try {
+            const { data } = await axios({ url: `${api}/${id}`, method: "get" })
+            blogId.value = data.id
+            blogTitle.value = data.title
+            blogContent.value = data.content
+        } catch (e) {
+            console.log('delete', e)
+        }
+    }
+</script>
+
+</html>
