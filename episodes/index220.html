@@ -4,8 +4,11 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Episode 217</title>
+    <title>Episode 220</title>
     <style>
+        body {
+            background-color: bisque;
+        }
         .blog-div {
             padding: 10px;
             border: 2px solid #000;
@@ -23,6 +26,8 @@
 
     </div>
 </body>
+
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 
 <script>
     const blogId = document.getElementById("blog-id")
@@ -42,15 +47,17 @@
         const apiUrl = blogId.value ? `${api}/${blogId.value}` : api
         const method = blogId.value ? "PUT" : "POST"
 
-        const response = await fetch(apiUrl, { 
-            method,
-            body: JSON.stringify(blog),
-            headers: {
-                "Content-Type": "application/json"
-            }
-         })
+        const response = await axios({ url: apiUrl, data: blog, method })
 
-         const json = await response.json()
+        // const response = await fetch(apiUrl, { 
+        //     method,
+        //     body: JSON.stringify(blog),
+        //     headers: {
+        //         "Content-Type": "application/json"
+        //     }
+        //  })
+
+         const json = response.data
          console.log(json)
          await getBlogs()
          blogTitle.value = ''
@@ -60,11 +67,14 @@
 
     async function getBlogs() {
         blogData.innerHTML = ''
-        const response = await fetch(api, {
-            method: "GET"
-        })
 
-        const json = await response.json()
+        const response = await axios({ url: api, method: "get" })
+        console.log(response)
+        // const response = await fetch(api, {
+        //     method: "GET"
+        // })
+
+        const json = response.data
         console.log(json)
 
         for(let blog of json) {
@@ -86,10 +96,12 @@
             return false
         }
 
-        const response = await fetch(`${api}/${id}`, {
-            method: "DELETE"
-        })
-        const json = await response.json()
+        const response = await axios({ url: `${api}/${id}`, method: "delete" })
+
+        // const response = await fetch(`${api}/${id}`, {
+        //     method: "DELETE"
+        // })
+        const json = response.data
 
         console.log(json)
         await getBlogs()
