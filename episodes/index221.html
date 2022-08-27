@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>jquery</title>
+    <style>
+        h1 {
+            padding: 10px;
+            background-color: aqua;
+        }
+    </style>
+</head>
+<body>
+    <h1 id="title">Hello</h1>
+    <button id="hide" onclick="hide()">Hide</button>
+    <button id="show" onclick="show()">Show</button>
+    <button id="show" onclick="animation()">Animation</button>
+</body>
+<script
+  src="https://code.jquery.com/jquery-3.6.0.min.js"
+  integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
+  crossorigin="anonymous"></script>
+
+  <script>
+    function hide() {
+        $("#title").hide(4000)
+    }
+
+    function show() {
+        $("#title").show(5000)
+    }
+
+    function animation() {
+        $("#title").animate({
+            width: "200px",
+            fontSize: "50px"
+        }, 5000) // 1000 mili == 1 sec
+    }
+  </script>
+</html>
